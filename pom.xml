@@ -205,7 +205,6 @@
             <groupId>com.bgsoftware.common.config</groupId>
             <artifactId>CommentedConfiguration</artifactId>
             <version>1.0.3</version>
-            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.rysefoxx.inventory</groupId>
@@ -216,6 +215,7 @@
             <groupId>com.iridium</groupId>
             <artifactId>IridiumSkyblock</artifactId>
             <version>LATEST</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

@@ -1,6 +1,5 @@
 package me.banbeucmas.oregen3.data;
 
-import com.cryptomorin.xseries.XSound;
 import lombok.AccessLevel;
 import lombok.Getter;
 import me.banbeucmas.oregen3.Oregen3;
@@ -44,7 +43,7 @@ public class Generator {
         level      = path.getDouble("level", 0);
         if (path.isSet("sound")) {
             soundEnabled = true;
-            sound        = XSound.matchXSound(path.getString("sound.name", "BLOCK_FIRE_EXTINGUISH")).map(XSound::parseSound).orElse(XSound.BLOCK_FIRE_EXTINGUISH.parseSound());
+            sound        = Sound.BLOCK_FIRE_EXTINGUISH;
             soundVolume  = (float) path.getDouble("sound.volume", 1);
             soundPitch   = (float) path.getDouble("sound.pitch", 1);
         }

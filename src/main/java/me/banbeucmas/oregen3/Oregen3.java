@@ -14,7 +14,6 @@ import me.banbeucmas.oregen3.listener.BlockListener;
 import me.banbeucmas.oregen3.listener.InventoryListener;
 import me.banbeucmas.oregen3.util.StringUtils;
 import net.milkbowl.vault.permission.Permission;
-import org.bstats.bukkit.MetricsLite;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
@@ -82,7 +81,6 @@ public final class Oregen3 extends JavaPlugin {
     public void onEnable() {
         plugin = this;
 
-        new MetricsLite(this, 3052);
 
         saveDefaultConfig();
         updateConfig();
@@ -141,6 +139,11 @@ public final class Oregen3 extends JavaPlugin {
         }
         else if (manager.isPluginEnabled("uSkyBlock")) {
             hook     = new uSkyBlockHook();
+            getLogger().severe("Hook successfully to uSkyBlock!");
+        }
+        else if (manager.isPluginEnabled("IridiumSkyblock")) {
+            hook     = new IridiumSkyblockHook();
+            getLogger().severe("Hook successfully to IridiumSkyblock!");
         }
         else {
             getLogger().warning("Plugin dependency for Oregen3 not found! Turning enableDependency off...");
@@ -186,7 +189,6 @@ public final class Oregen3 extends JavaPlugin {
             permissionChecker = new DefaultPermissionChecker();
         }
     }
-    //Tests
 
 
 }

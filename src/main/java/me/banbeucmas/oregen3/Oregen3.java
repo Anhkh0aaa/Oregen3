@@ -186,6 +186,7 @@ public final class Oregen3 extends JavaPlugin {
             permissionChecker = new DefaultPermissionChecker();
         }
     }
+    //Test
 
 
 }

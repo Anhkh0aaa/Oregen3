@@ -1,6 +1,5 @@
 package me.banbeucmas.oregen3.hook.skyblock;
 
-import com.iridium.iridiumskyblock.IridiumSkyblock;
 import com.iridium.iridiumskyblock.api.IridiumSkyblockAPI;
 import com.iridium.iridiumskyblock.database.Island;
 import com.iridium.iridiumskyblock.database.User;
@@ -16,37 +15,49 @@ import java.util.UUID;
 
 public class IridiumSkyblockHook implements SkyblockHook {
 
-    private final IridiumSkyblockAPI iridiumSkyblock = IridiumSkyblockAPI.getInstance();
+    private final IridiumSkyblockAPI iridium = IridiumSkyblockAPI.getInstance();
 
     @Override
     public double getIslandLevel(UUID uuid, Location loc) {
         Player player = Bukkit.getPlayer(uuid);
 
-        return iridiumSkyblock.getIslandByName(player.getName()).get().getLevel();
+        assert player != null;
+        if (iridium.getIslandByName(player.getName()).isPresent()) {
+            return iridium.getIslandByName(player.getName()).get().getLevel();
+        }
+        return 0;
+
     }
 
     @Override
     public UUID getIslandOwner(Location loc) {
-//        Island island = iridiumSkyblock.getIslandViaLocation(loc).get();
-//        return island == null ? null : island.getOwner().getUuid();
         return null;
     }
 
     @Override
     public UUID getIslandOwner(UUID uuid, World world) {
         Player player = Bukkit.getPlayer(uuid);
-        return iridiumSkyblock.getIslandByName(player.getName()).get().getOwner().getUuid();
+        assert player != null;
+        if (iridium.getIslandByName(player.getName()).isPresent()) {
+            return iridium.getIslandByName(player.getName()).get().getOwner().getUuid();
+        }
+        return null;
+
     }
 
     @Override
     public List<UUID> getMembers(UUID uuid, World world) {
         Player player = Bukkit.getPlayer(uuid);
-        Optional<Island> userIsland = iridiumSkyblock.getIslandByName(player.getName());
-        List<User> userList = userIsland.get().getMembers();
-        List<UUID> listUuid = new ArrayList<>();
-        for (User user : userList) {
-            listUuid.add(user.getUuid());
+        assert player != null;
+        Optional<Island> userIsland = iridium.getIslandByName(player.getName());
+        if (userIsland.isPresent()) {
+            List<User> userList = userIsland.get().getMembers();
+            List<UUID> listUuid = new ArrayList<>();
+            for (User user : userList) {
+                listUuid.add(user.getUuid());
+            }
+            return listUuid;
         }
-        return listUuid;
+        return null;
     }
 }
